@@ -41,6 +41,8 @@
   #bar a:hover{color:#fff}
   #read{opacity:.7;font-size:11px}
   #sig{margin-left:auto;opacity:.5;font-size:10px}
+  .view-sec{max-width:760px;margin:0 auto 30px} .view-sec .vl{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px;opacity:.85}
+  #view{display:block;width:100%;border-radius:11px;border:1px solid rgba(255,255,255,0.12)} .view-sec .vc{font-family:'Space Mono',monospace;font-size:11.5px;line-height:1.6;opacity:.7;margin-top:9px}
   @media(max-width:640px){#sig{display:none}}
 </style>
 </head>
@@ -64,6 +66,7 @@
     <p class="thesis"><b>GURUTVA</b> (गुरुत्व — <i>heaviness</i>, from <i>guru</i>, "the heavy") is gravity, named for the culture that <b>first called it a force</b>: the Indian astronomer <b>Brahmagupta</b> (c. 628 CE) — <i>"it is the nature of the earth to attract."</i> This domain traces the pull from Enheduanna's heavens to the graviton, and ties it to <b>K·Q·V</b>: gravity is the universe's attention — every mass attending to every other.</p>
   </div>
   <div class="banner" id="banner"></div>
+  <section class="view-sec"><div class="vl" id="viewlabel">▸ gravity = attention</div><canvas id="view"></canvas><p class="vc" id="viewcap"></p></section>
   <div id="deck"></div>
   <footer>
     GURUTVA · GRV · गुरुत्व (heaviness, from guru) · the 27th UD0 domain · gravity, and the attention of mass · governor David Lee Wise · instance AVAN (locked) · CC-BY-ND-4.0<br>
@@ -80,7 +83,8 @@
     schemes:["analogous","split","warm"],
     motifPool:["rings","spiral","constellation","lissajous","arcs","mandala"],
     cols:[2,3],
-    banner:"⚖ Honest gravity. The history is real and cited: Brahmagupta (c. 628 CE, India) first described gravity as an attractive FORCE — gurutva — though Aristotle (Greece, ~350 BCE) theorised heaviness earlier (as 'natural place', and wrongly), and the WORD gravity is the Latin gravitas. The GRAVITY × K·Q·V tie is an ANALOGY — a bridge of 'attraction over a field', not a claim that gravity literally IS attention. The graviton, traversable wormholes, and anti-gravity are flagged speculative. To name a force is real work; to fabricate one is another thing."
+    banner:"⚖ Honest gravity. The history is real and cited: Brahmagupta (c. 628 CE, India) first described gravity as an attractive FORCE — gurutva — though Aristotle (Greece, ~350 BCE) theorised heaviness earlier (as 'natural place', and wrongly), and the WORD gravity is the Latin gravitas. The GRAVITY × K·Q·V tie is an ANALOGY — a bridge of 'attraction over a field', not a claim that gravity literally IS attention. The graviton, traversable wormholes, and anti-gravity are flagged speculative. To name a force is real work; to fabricate one is another thing.",
+    viewcap:"A live illustration of the thesis: every mass attends to every other, the pull weighted by 1/r² — the gravitational softmax. Gravity is the universe’s K·Q·V."
   };
   var CARDS = [
     {h:"Enheduanna's Sky", b:"LINEAGE · c. 2300 BCE, Sumer. The first named author watched and hymned the heavens (Inanna as the planet Venus); Babylon after her built the first mathematical astronomy, tracking the sky with precision. But they charted the order — they never asked why things FALL. The starting line, honestly: sky-watching, not yet gravity."},
@@ -109,6 +113,7 @@
     {h:"Honest Gravity", b:"STATUS — the history is real and cited (Brahmagupta first NAMED the force; Aristotle theorised heaviness earlier but wrongly; Einstein gave it its deepest form). The GRAVITY × K·Q·V tie is an ANALOGY — attraction over a field — not a claim that gravity IS attention. The graviton, wormholes, and anti-gravity are flagged speculative. To name a force is the start; to fabricate one is another thing."}
   ];
 
+  var VFRAME=function(g,w,h,pal,R,t){var C=pal.colors,ink=pal.ink,cx=w/2,cy=h/2,i,j,N=9,nodes=[];for(i=0;i<N;i++)nodes.push({x:0.12+R()*0.76,y:0.18+R()*0.62,m:0.4+R()*1.1,ph:R()*6.283});function px(o){return (o.x+0.018*Math.cos(t*0.01+o.ph))*w;}function py(o){return (o.y+0.018*Math.sin(t*0.012+o.ph))*h;}for(i=0;i<N;i++)for(j=i+1;j<N;j++){var ax=px(nodes[i]),ay=py(nodes[i]),bx=px(nodes[j]),by=py(nodes[j]),dx=ax-bx,dy=ay-by,d2=dx*dx+dy*dy+500,wgt=nodes[i].m*nodes[j].m/d2*16000;g.globalAlpha=Math.min(0.6,wgt*0.05);g.strokeStyle=C[(i+j)%C.length];g.lineWidth=Math.min(3.2,wgt*0.45);g.beginPath();g.moveTo(ax,ay);g.lineTo(bx,by);g.stroke();}for(i=0;i<N;i++){var o=nodes[i],x=px(o),y=py(o),r=3+o.m*6;g.globalAlpha=0.16;g.fillStyle=C[i%C.length];g.beginPath();g.arc(x,y,r*2.3,0,7);g.fill();g.globalAlpha=0.95;g.beginPath();g.arc(x,y,r,0,7);g.fill();}g.globalAlpha=0.72;g.fillStyle=ink;g.font="10px 'Space Mono',monospace";g.textAlign="center";g.fillText("every mass attends to every other — weighted by 1/r² (the gravitational softmax)",cx,h-12);};
   function xmur3(s){ for(var i=0,h=1779033703^s.length;i<s.length;i++){ h=Math.imul(h^s.charCodeAt(i),3432918353); h=h<<13|h>>>19; } return function(){ h=Math.imul(h^h>>>16,2246822507); h=Math.imul(h^h>>>13,3266489909); return (h^=h>>>16)>>>0; }; }
   function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
   function rngFrom(s){ var x=xmur3(s); return mulberry32(x()); }
@@ -183,6 +188,9 @@
   }
 
   function draw(){ if(st){ g.fillStyle=st.pal.bg; g.fillRect(0,0,W,H); g.globalAlpha=0.85; M(st.bgM,g,W,H,st.pal,rngFrom("gurutva:"+st.seed+":bg"),t); g.globalAlpha=1; if(running)t++; } requestAnimationFrame(draw); }
+  var vc=document.getElementById("view"), vg=vc?vc.getContext("2d"):null, vt=0;
+  function vfit(){ if(!vc)return; var ww=vc.clientWidth||640; vc.width=ww; vc.height=Math.round(Math.min(ww*0.52,340)); }
+  function vdraw(){ if(vc&&vg&&st){ vg.fillStyle=st.pal.bg; vg.fillRect(0,0,vc.width,vc.height); try{ VFRAME(vg,vc.width,vc.height,st.pal,rngFrom("gurutva:v"),vt); }catch(e){} if(running)vt++; } requestAnimationFrame(vdraw); }
 
   function newSeed(){ return Math.floor(Math.random()*1e9); }
   function readSeed(){ var h=(location.hash||"").replace(/^#/,"").replace(/^seed=/,""); var n=parseInt(h,10); return (h&&!isNaN(n))?n:null; }
@@ -192,11 +200,11 @@
   document.getElementById("motion").onclick=function(){ running=!running; this.textContent=running?"⏸ motion":"▶ motion"; };
   function flash(m){ var r=document.getElementById("read"),o=r.textContent; r.textContent=m; setTimeout(function(){ r.textContent=o; },1300); }
   window.addEventListener("hashchange",function(){ var s=readSeed(); if(s!==null&&(!st||s!==st.seed)) setup(s); });
-  var rt; window.addEventListener("resize",function(){ clearTimeout(rt); rt=setTimeout(function(){ fit(); if(st) setup(st.seed); },170); });
+  var rt; window.addEventListener("resize",function(){ clearTimeout(rt); rt=setTimeout(function(){ fit(); vfit(); if(st) setup(st.seed); },170); });
 
   fit();
   var s0=readSeed(); if(s0===null){ s0=newSeed(); history.replaceState(null,"","#"+s0); }
-  setup(s0); draw();
+  setup(s0); draw(); vfit(); requestAnimationFrame(vdraw); var _vc=document.getElementById("viewcap"); if(_vc)_vc.textContent=THEME.viewcap;
 })();
 </script>
 </body>
