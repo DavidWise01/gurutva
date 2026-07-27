@@ -2,8 +2,8 @@ ROOT0-DLW-CHAIN-v1
 index : 542
 slug  : gurutva
 seal  : 9f7733380540fbe76564985551a79f490818a9018264d106b2fc59115bd493e6
-prev  : 75d113e20b849a0c2d517669dc856cbf6f26116728aad26bde47fa9170b09be0
-link  : ad9717e58f65ac3dea9dd7be157b909f1fd0623b7a6528e66f95b3bb6fa65d8c
-head  : 13f9ace173ef2e60af38912ba329b4afcb5a38b84a0e4495e8d30327f8c99cc2
+prev  : 2bf3fd4da630a7d0533a7398ca97dad11fc589f03bfe704d5e121bb55d89082a
+link  : ede439e24ca69ffaf125164b1237c58c2cb49687015c3bcbcd1264b9348ca5f3
+head  : c4d41afeaef76470528856d54d86cf480a0e1c2fc8ebc60fbb9eb8e442585f2b
 
 — the tether: link = sha256(index|slug|seal|prev). the chain head commits to the whole corpus.
